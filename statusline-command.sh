@@ -171,7 +171,7 @@ fi
 
 # -- Cost --
 cost_usd=$(echo "$input" | jq -r '.cost.total_cost_usd // 0')
-cost_fmt=$(printf '%.4f' "$cost_usd")
+cost_fmt=$(printf '%.2f' "$cost_usd")
 cost_part="${grey}💸:${reset} ${green}\$${cost_fmt}${reset}"
 
 # -- Duration --
