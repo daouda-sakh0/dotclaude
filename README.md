@@ -64,6 +64,15 @@ Meta-skill for designing and writing high-quality Claude Code skills. Guides you
 
 **Decay**: `effective_importance = base_importance - (days_since_last_access / 30)`. Memories at zero are candidates for eviction during `/memory maintain`.
 
+### brag
+
+Weekly brag document generator. Run on Fridays with `/brag` to produce a formatted weekly entry from your archival memories, ready to paste into your [brag doc](https://docs.google.com/document/d/1NVES2t2mGkXpJmc13UBMfRyDa1rDDCTWLduNn5azLXw/edit).
+
+- Scans archival memories created during the current work week (Mon-Fri)
+- Extracts highlights with impact-first phrasing
+- Groups by theme when there are 4+ items (Incident Response, Engineering, Tooling, etc.)
+- Outputs a formatted entry matching the brag doc's week-header + bullet-point style
+
 ### Permissions
 
 The memory skill needs Read/Edit/Write access to the memory directory without permission prompts. Setup automatically adds these rules to `~/.claude/settings.json`:
