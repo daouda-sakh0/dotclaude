@@ -45,9 +45,28 @@ Reusable Claude Code skills that can be shared across workspaces.
 
 Meta-skill for designing and writing high-quality Claude Code skills. Guides you through a step-by-step authoring workflow with embedded patterns, templates, and anti-patterns drawn from production-grade skill development.
 
-#### Installation
+### memory
+
+3-tier persistent memory system for Claude Code. Stores distilled session insights in a local archival file store with tag-based retrieval.
+
+**Subcommands:**
+- `/memory save` — distill current session insights into archival memory
+- `/memory recall [topic]` — retrieve relevant memories by topic
+- `/memory maintain` — run decay, merge, prune, rebuild index
+- `/memory status` — show memory stats (count by type, MEMORY.md usage)
+
+**Architecture:**
+- **Tier 1 (Working)**: Native session context (no changes needed)
+- **Tier 2 (Core)**: `MEMORY.md` auto-loaded every session (200-line limit)
+- **Tier 3 (Archival)**: Local `.md` files with YAML frontmatter in `episodic/`, `semantic/`, `procedural/` subdirectories, indexed by tags
+
+**Retrieval**: Tag match against `index.md`, with full-text grep fallback. No embeddings required.
+
+**Decay**: `effective_importance = base_importance - (days_since_last_access / 30)`. Memories at zero are candidates for eviction during `/memory maintain`.
+
+### Installation
 
 ```bash
-# Copy skills into your global Claude config
-cp -r skills/ ~/.claude/skills/
+# Run setup to deploy all skills and create memory directories
+./setup.sh
 ```
