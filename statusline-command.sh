@@ -91,6 +91,45 @@ if [ -n "$VIRTUAL_ENV" ]; then
     venv_info=" ${grey}${venv_name}${reset}"
 fi
 
+# MCP auth status (cached — only re-check every 60s)
+MCP_CACHE_DIR="/tmp/statusline-mcp-cache"
+MCP_CACHE_MAX_AGE=60
+mkdir -p "$MCP_CACHE_DIR"
+mcp_cache_file="${MCP_CACHE_DIR}/mcp-auth-status"
+
+mcp_cache_is_stale() {
+    [ ! -f "$mcp_cache_file" ] || \
+    [ $(($(date +%s) - $(stat -f %m "$mcp_cache_file" 2>/dev/null || stat -c %Y "$mcp_cache_file" 2>/dev/null || echo 0))) -gt $MCP_CACHE_MAX_AGE ]
+}
+
+if mcp_cache_is_stale; then
+    mcp_expired=$(python3 -c "
+import json, time, os
+creds = os.path.expanduser('~/.claude/.credentials.json')
+if not os.path.exists(creds):
+    print('0')
+else:
+    with open(creds) as f:
+        data = json.load(f)
+    now_ms = int(time.time() * 1000)
+    count = 0
+    for key, val in data.get('mcpOAuth', {}).items():
+        exp = val.get('expiresAt', 0)
+        tok = val.get('accessToken', '')
+        if not tok or exp == 0 or exp < now_ms:
+            count += 1
+    print(count)
+" 2>/dev/null || echo "0")
+    echo "$mcp_expired" > "$mcp_cache_file"
+fi
+
+mcp_expired_count=$(cat "$mcp_cache_file" 2>/dev/null || echo "0")
+mcp_info=""
+if [ "$mcp_expired_count" -gt 0 ]; then
+    red='\033[38;2;255;92;87m'
+    mcp_info=" ${red}MCP:${mcp_expired_count}⚠${reset}"
+fi
+
 row1="${user_host}${blue}${dir_display}${reset}${git_info}${venv_info}"
 
 # ---------------------------------------------------------------------------
@@ -190,6 +229,9 @@ duration_part="${grey}🕰️:${reset} ${blue}${duration_val}${reset}"
 row2=""
 if [ -n "$model_part" ]; then
     row2="${model_part}"
+fi
+if [ -n "$mcp_info" ]; then
+    row2="${row2}${mcp_info}"
 fi
 if [ -n "$context_bar" ]; then
     row2="${row2} ${context_bar}"
