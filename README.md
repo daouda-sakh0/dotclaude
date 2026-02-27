@@ -64,6 +64,22 @@ Meta-skill for designing and writing high-quality Claude Code skills. Guides you
 
 **Decay**: `effective_importance = base_importance - (days_since_last_access / 30)`. Memories at zero are candidates for eviction during `/memory maintain`.
 
+### Permissions
+
+The memory skill needs Read/Edit/Write access to the memory directory without permission prompts. Setup automatically adds these rules to `~/.claude/settings.json`:
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "Read(~/.claude/projects/-Users-<username>/memory/**)",
+      "Edit(~/.claude/projects/-Users-<username>/memory/**)",
+      "Write(~/.claude/projects/-Users-<username>/memory/**)"
+    ]
+  }
+}
+```
+
 ### Installation
 
 ```bash

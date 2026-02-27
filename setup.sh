@@ -80,4 +80,36 @@ EOF
   echo "  Created MEMORY.md template."
 fi
 
+# Configure memory permissions in settings.json
+SETTINGS_FILE="$HOME/.claude/settings.json"
+USERNAME=$(whoami)
+MEMORY_PATH="~/.claude/projects/-Users-${USERNAME}/memory/**"
+
+if [ -f "$SETTINGS_FILE" ]; then
+  # Check if permissions.allow already contains memory rules
+  if ! grep -q "memory/\*\*" "$SETTINGS_FILE" 2>/dev/null; then
+    echo "Adding memory permissions to $SETTINGS_FILE..."
+    # Use python3 to safely merge into existing JSON
+    python3 -c "
+import json, sys
+with open('$SETTINGS_FILE', 'r') as f:
+    settings = json.load(f)
+perms = settings.setdefault('permissions', {})
+allow = perms.setdefault('allow', [])
+for tool in ['Read', 'Edit', 'Write']:
+    rule = f'{tool}($MEMORY_PATH)'
+    if rule not in allow:
+        allow.append(rule)
+with open('$SETTINGS_FILE', 'w') as f:
+    json.dump(settings, f, indent=2)
+    f.write('\n')
+"
+    echo "  Memory permissions added."
+  else
+    echo "  Memory permissions already configured."
+  fi
+else
+  echo "  Warning: $SETTINGS_FILE not found. Create it and re-run setup to add memory permissions."
+fi
+
 echo "Done! Submodules initialized, hooks configured, skills deployed, memory system ready."
