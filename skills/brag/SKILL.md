@@ -35,6 +35,11 @@ For each matching memory, extract:
 - **What was done**: The concrete action or deliverable.
 - **Impact**: Why it mattered — what it unblocked, fixed, improved, or de-risked.
 - **Project context**: Which project or initiative it relates to.
+- **Status**: Whether the work has shipped/landed or is still in progress. Distinguish between "done and deployed" vs "code written, not yet shipped". Frame unshipped work accurately (e.g., "Developed..." or "Prepared..." rather than "Resolved..." or "Reduced...").
+
+**Filtering rules:**
+- **Exclude personal tooling work**: This brag doc is for the user's manager. Omit work on personal developer environment setup, dotclaude config, Claude Code skills/memory system, local tooling, or MCP auth diagnostics — unless it directly produced a team-visible deliverable.
+- **Exclude purely procedural memories**: Memories about "how to do X" (e.g., GHE token setup, build commands) are reference material, not accomplishments.
 
 Group highlights by theme if there are 4+ items. Suggested themes:
 - Incident Response
@@ -53,19 +58,18 @@ Produce a brag doc entry matching this exact format:
 ```
 ## Week {N}: Monday {Month} {day}{ordinal} - Friday {Month} {day}{ordinal}
 
-* {Highlight 1 — impact-first phrasing}
+* {Highlight 1}
 * {Highlight 2}
-  * {Optional sub-bullet with detail or link}
 * {Highlight 3}
 ```
 
 **Writing guidelines:**
-- Lead each bullet with the impact or outcome, not the activity.
-  - Good: "Resolved Cloud SQL CPU spike incident (DM-1909) by adding Guava caching layer to schema-discovery-service, reducing DB load"
-  - Bad: "Worked on schema-discovery-service caching"
-- Use active voice and specific nouns (service names, ticket IDs, metric names).
-- Include links to PRs, docs, or tickets when available from memory content.
-- Keep bullets concise — 1-2 lines each.
+- Aim for 3-5 bullets total per week. Consolidate related work into single bullets.
+- Each bullet should be ONE line — short and punchy. No sub-bullets unless linking a PR.
+- Lead with impact or outcome, not the activity.
+- Be honest about shipped vs. unshipped work. Use "Developed..." or "Prepared..." for unshipped code, not "Resolved..." or "Reduced..." which imply production impact.
+- Use active voice and specific nouns (service names, ticket IDs).
+- Include PR links inline when available, not as sub-bullets.
 
 ### Step 5: Present to User
 
