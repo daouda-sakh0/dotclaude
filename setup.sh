@@ -108,6 +108,32 @@ with open('$SETTINGS_FILE', 'w') as f:
   else
     echo "  Memory permissions already configured."
   fi
+
+  # Enable marketplace plugins
+  echo "Configuring plugins..."
+  python3 -c "
+import json
+with open('$SETTINGS_FILE', 'r') as f:
+    settings = json.load(f)
+plugins = settings.setdefault('enabledPlugins', {})
+desired = [
+    'claude-md-management@claude-plugins-official',
+    'semgrep@claude-plugins-official',
+    'superpowers@claude-plugins-official',
+]
+changed = False
+for p in desired:
+    if p not in plugins:
+        plugins[p] = True
+        changed = True
+if changed:
+    with open('$SETTINGS_FILE', 'w') as f:
+        json.dump(settings, f, indent=2)
+        f.write('\n')
+    print('  Plugins enabled.')
+else:
+    print('  Plugins already configured.')
+"
 else
   echo "  Warning: $SETTINGS_FILE not found. Create it and re-run setup to add memory permissions."
 fi

@@ -17,7 +17,7 @@ You are managing a 3-tier persistent memory system. Parse the user's subcommand 
 
 ### Subcommand: `save`
 
-**Usage**: `/memory save` or `/memory save [brief description]`
+**Usage**: `/memory:save` or `/memory:save [brief description]`
 
 1. Reflect on the current session. Identify insights worth persisting:
    - Stable user preferences or conventions
@@ -34,12 +34,13 @@ You are managing a 3-tier persistent memory system. Parse the user's subcommand 
 6. Update the index: read `archival/index.md`, add the new memory's tags and file path.
 7. Consider whether Core Memory (MEMORY.md) needs updating — add a brief pointer if the new memory relates to an active project or convention.
 8. Report what was saved, with the file path and tags.
+9. Compact the session by running `/compact` to free up context space now that key insights have been persisted.
 
 **Important**: Distill insights — don't dump raw conversation. Each memory should be a self-contained, reusable piece of knowledge.
 
 ### Subcommand: `recall`
 
-**Usage**: `/memory recall [topic]` or `/memory recall [topic1, topic2]`
+**Usage**: `/memory:recall [topic]` or `/memory:recall [topic1, topic2]`
 
 1. Read `references/retrieval-patterns.md` for the full algorithm.
 2. Extract keywords from the topic query.
@@ -51,7 +52,7 @@ You are managing a 3-tier persistent memory system. Parse the user's subcommand 
 
 ### Subcommand: `maintain`
 
-**Usage**: `/memory maintain`
+**Usage**: `/memory:maintain`
 
 1. Read `references/maintenance-guide.md` for full procedures.
 2. **Decay check**: For each memory file, compute effective importance:
@@ -69,7 +70,7 @@ You are managing a 3-tier persistent memory system. Parse the user's subcommand 
 
 ### Subcommand: `status`
 
-**Usage**: `/memory status`
+**Usage**: `/memory:status`
 
 1. Count files in each archival subdirectory (`episodic/`, `semantic/`, `procedural/`).
 2. Count total lines in MEMORY.md, report usage vs 200-line limit.
@@ -78,10 +79,45 @@ You are managing a 3-tier persistent memory system. Parse the user's subcommand 
 5. Find memories at risk of eviction (effective_importance < 2).
 6. Present a clean status report.
 
+### Subcommand: `help`
+
+**Usage**: `/memory:help`
+
+Print the following help text exactly, formatted as a code block:
+
+```
+memory — Persistent memory management
+
+USAGE
+  /memory:save [description]   Save insights from this session to memory
+  /memory:recall <topic>       Retrieve memories matching a topic
+  /memory:maintain             Run decay, merge, and index maintenance
+  /memory:status               Show memory system stats and health
+  /memory:help                 Show this help text
+
+DESCRIPTION
+  Manages a 3-tier archival memory system (episodic, semantic, procedural).
+  Memories persist across sessions and are indexed by tags for fast retrieval.
+
+  /memory:save     — Reflects on the current session, distills reusable
+                     insights, writes them to archival storage, updates the
+                     index, and compacts the session context.
+
+  /memory:recall   — Searches the tag index and full-text for matching
+                     memories. Returns the top 3–5 results with source paths.
+
+  /memory:maintain — Applies importance decay, suggests merges for overlapping
+                     memories, and rebuilds the index. Audits MEMORY.md size.
+
+  /memory:status   — Counts files per tier, reports MEMORY.md line usage,
+                     lists most/least accessed memories and eviction risks.
+```
+
 ## Argument Handling
 
-- No args or `status` → run status
-- `save` or `save [description]` → run save
-- `recall [topic]` → run recall
-- `maintain` → run maintain
-- Any unrecognized subcommand → show usage help
+- `/memory` or `/memory:status` → run status
+- `/memory:save` or `/memory:save [description]` → run save
+- `/memory:recall [topic]` → run recall
+- `/memory:maintain` → run maintain
+- `/memory:help` → run help
+- Any unrecognized subcommand → run help
