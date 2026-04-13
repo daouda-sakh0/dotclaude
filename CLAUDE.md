@@ -12,7 +12,7 @@ Personal Claude Code configuration (`~/.claude`) managed as a git repo. Contains
 ./setup.sh
 ```
 
-This single command: sets git hooks path to `.githooks/`, inits submodules, copies skills to `~/.claude/skills/`, creates the archival memory directory tree, adds memory permission rules to `~/.claude/settings.json`, and enables marketplace plugins (claude-md-management, semgrep, superpowers).
+This single command: sets git hooks path to `.githooks/`, inits submodules, copies skills to `~/.claude/skills/`, creates the archival memory directory tree, adds memory permission rules to `~/.claude/settings.json`, and enables marketplace plugins (claude-md-management, superpowers).
 
 ## Repository Structure
 

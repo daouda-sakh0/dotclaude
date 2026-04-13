@@ -118,7 +118,6 @@ with open('$SETTINGS_FILE', 'r') as f:
 plugins = settings.setdefault('enabledPlugins', {})
 desired = [
     'claude-md-management@claude-plugins-official',
-    'semgrep@claude-plugins-official',
     'superpowers@claude-plugins-official',
 ]
 changed = False
