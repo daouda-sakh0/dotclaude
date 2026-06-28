@@ -1,0 +1,9 @@
+{
+  "name": "memory",
+  "description": "3-tier persistent memory system with save, recall, maintain, and status operations. Stores episodic, semantic, and procedural memories across sessions.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Daouda Sakho",
+    "email": "d.sakho89@gmail.com"
+  }
+}

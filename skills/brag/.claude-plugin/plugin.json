@@ -1,0 +1,9 @@
+{
+  "name": "brag",
+  "description": "Weekly brag doc generator. Pulls from archival memories to produce a summary of recent work for standups, 1:1s, or performance reviews.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Daouda Sakho",
+    "email": "d.sakho89@gmail.com"
+  }
+}
