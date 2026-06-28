@@ -6,10 +6,19 @@ set -e
 git config core.hooksPath .githooks
 git submodule update --init --recursive
 
-# Deploy skills to global Claude config
-echo "Deploying skills..."
+# Symlink skills into global Claude config (live from repo — no re-run needed after skill edits)
+echo "Linking skills..."
 mkdir -p ~/.claude/skills
-cp -r skills/ ~/.claude/skills/
+REPO_DIR="$(cd "$(dirname "$0")" && pwd)"
+for skill_dir in "$REPO_DIR"/skills/*/; do
+  skill_name="$(basename "$skill_dir")"
+  target="$HOME/.claude/skills/$skill_name"
+  if [ -e "$target" ] || [ -L "$target" ]; then
+    rm -rf "$target"
+  fi
+  ln -sf "$skill_dir" "$target"
+  echo "  Linked $skill_name"
+done
 
 # Create local memory directory structure (not git-tracked)
 MEMORY_ROOT="$HOME/.claude/projects/-Users-$(whoami)/memory"
