@@ -8,9 +8,9 @@ You are managing a 3-tier persistent memory system. Parse the user's subcommand 
 
 ### Paths
 
-- **Core Memory**: `~/.claude/projects/-Users-daoudasakho/memory/MEMORY.md`
-- **Archival Root**: `~/.claude/projects/-Users-daoudasakho/memory/archival/`
-- **Index**: `~/.claude/projects/-Users-daoudasakho/memory/archival/index.md`
+- **Core Memory**: `~/.wiki/WIKI.md`
+- **Archival Root**: `~/.wiki/archival/`
+- **Index**: `~/.wiki/archival/index.md`
 - **Schema Reference**: Read `references/memory-schema.md` for memory unit format
 - **Retrieval Reference**: Read `references/retrieval-patterns.md` for search algorithm
 - **Maintenance Reference**: Read `references/maintenance-guide.md` for decay/merge/prune
@@ -32,7 +32,7 @@ You are managing a 3-tier persistent memory system. Parse the user's subcommand 
 4. Generate a unique ID: `mem_YYYYMMDD_HHMMSS_XXXX` (XXXX = 4 random hex chars).
 5. Write the memory file to the appropriate subdirectory under `archival/`.
 6. Update the index: read `archival/index.md`, add the new memory's tags and file path.
-7. Consider whether Core Memory (MEMORY.md) needs updating — add a brief pointer if the new memory relates to an active project or convention.
+7. Consider whether Core Memory (WIKI.md) needs updating — add a brief pointer if the new memory relates to an active project or convention.
 8. Report what was saved, with the file path and tags.
 9. Compact the session by running `/compact` to free up context space now that key insights have been persisted.
 
@@ -65,7 +65,7 @@ You are managing a 3-tier persistent memory system. Parse the user's subcommand 
    - Tag index (tag → file list)
    - By-type listings
    - Updated stats
-6. **Core Memory audit**: Check MEMORY.md line count. If over 180 lines, suggest moving detailed sections to archival.
+6. **Core Memory audit**: Check WIKI.md line count. If over 180 lines, suggest moving detailed sections to archival.
 7. Report summary: memories checked, evicted, merged, index entries.
 
 ### Subcommand: `status`
@@ -73,7 +73,7 @@ You are managing a 3-tier persistent memory system. Parse the user's subcommand 
 **Usage**: `/memory:status`
 
 1. Count files in each archival subdirectory (`episodic/`, `semantic/`, `procedural/`).
-2. Count total lines in MEMORY.md, report usage vs 200-line limit.
+2. Count total lines in WIKI.md, report usage vs 200-line limit.
 3. Read `archival/index.md` and report unique tag count.
 4. Find the most-accessed and least-accessed memories (by `access_count`).
 5. Find memories at risk of eviction (effective_importance < 2).
@@ -107,9 +107,9 @@ DESCRIPTION
                      memories. Returns the top 3–5 results with source paths.
 
   /memory:maintain — Applies importance decay, suggests merges for overlapping
-                     memories, and rebuilds the index. Audits MEMORY.md size.
+                     memories, and rebuilds the index. Audits WIKI.md size.
 
-  /memory:status   — Counts files per tier, reports MEMORY.md line usage,
+  /memory:status   — Counts files per tier, reports WIKI.md line usage,
                      lists most/least accessed memories and eviction risks.
 ```
 
