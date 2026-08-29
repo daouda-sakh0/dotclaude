@@ -2,7 +2,7 @@
 name: wiki
 description: >
   Manage the Obsidian knowledge vault. Subcommands: distill-session (capture session knowledge),
-  help (show usage). Future: recall, organize.
+  help (show usage). Future: recall, organize. Invoke as `/wiki <subcommand>`.
 allowed-tools: Read, Edit, Write, AskUserQuestion
 ---
 
@@ -16,8 +16,8 @@ Parse the user's subcommand and execute the corresponding operation.
 
 ### Argument Handling
 
-- `/wiki` or `/wiki:help` → run help
-- `/wiki:distill-session` → run distill-session
+- `/wiki` or `/wiki help` → run help
+- `/wiki distill-session` → run distill-session
 - Any unrecognized subcommand → run help
 
 ---
@@ -187,18 +187,18 @@ Print the following help text exactly, formatted as a code block:
 wiki — Obsidian knowledge vault management
 
 USAGE
-  /wiki:distill-session    Distill this session's knowledge into the vault
-  /wiki:help               Show this help text
+  /wiki distill-session    Distill this session's knowledge into the vault
+  /wiki help               Show this help text
 
 DESCRIPTION
   Manages an Obsidian-compatible knowledge vault organized into four buckets:
   Facts, Procedures, Concepts, and Questions.
 
-  /wiki:distill-session — Scans the conversation for reusable knowledge,
+  /wiki distill-session — Scans the conversation for reusable knowledge,
                           categorizes it, presents for approval, then merges
                           into the vault with [[wikilinks]] for cross-referencing.
 
 FUTURE SUBCOMMANDS (not yet implemented)
-  /wiki:recall <topic>     Retrieve vault entries matching a topic
-  /wiki:organize           Re-link and re-tag vault entries
+  /wiki recall <topic>     Retrieve vault entries matching a topic
+  /wiki organize           Re-link and re-tag vault entries
 ```
