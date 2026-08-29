@@ -25,6 +25,7 @@ skills/                      # Local skills (deployed to ~/.claude/skills/ by se
   skill-author/              # Meta-skill for authoring new skills
   memory/                    # 3-tier persistent memory system (/memory save|recall|maintain|status)
   brag/                      # Weekly brag doc generator from archival memories
+  wiki/                      # Obsidian vault management (/wiki:distill-session, future: recall, organize)
 plugins/
   superpowers/               # Git submodule — development workflow skills (TDD, planning, debugging, etc.)
 ```
